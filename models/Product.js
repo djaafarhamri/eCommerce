@@ -14,6 +14,10 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    marque: {
+      type: String,
+      required: true,
+    },
     subCategory: {
       type: String,
       required: true,
@@ -21,6 +25,10 @@ const productSchema = mongoose.Schema(
     quantity: {
         type: Number,
         default: 1
+    },
+    taille: {
+        type: String,
+        required: true
     },
     price: {
       type: Number,

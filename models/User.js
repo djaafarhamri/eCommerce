@@ -12,11 +12,16 @@ const userSchema = mongoose.Schema(
     },
     first_name: {
       type: String,
-      required: [true, "please enter an username"],
+      required: [true, "please enter your first name"],
     },
     last_name: {
       type: String,
+      required: [true, "please enter your last name"],
+    },
+    username: {
+      type: String,
       required: [true, "please enter an username"],
+      unique: [true, "username already exist"]
     },
     password: {
       type: String,
