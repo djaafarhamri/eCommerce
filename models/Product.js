@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 
 const productSchema = mongoose.Schema(
   {
+    codebar: {
+      type: Number,
+      required: true,
+      uniique: true
+    },
     title: {
       type: String,
       required: true,
@@ -36,7 +41,10 @@ const productSchema = mongoose.Schema(
     },
     dateAdded: {
       type: Date,
-      default: Date.now,
+      default: Date.now
+    },
+    dateSold: {
+      type: Date,
     },
   },
   { collection: "products" }

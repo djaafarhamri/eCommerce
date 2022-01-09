@@ -27,17 +27,14 @@ const requireAdmin = (req, res, next) => {
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
       let admin = await User.findById(decodedToken.id);
-      if (err || admin.isAdmin === false) {
+      if (err || admin.isAdmin !== "admin") {
           if(err) console.log(err.message);
-        req.isAdmin = false
         res.status(400).json('not admin');
     } else {
-        req.isAdmin = true
         next();
     }
 });
 } else {
-    req.isAdmin = false
     res.status(400).json('no token found');
   }
 };
@@ -48,17 +45,14 @@ const requireManager = (req, res, next) => {
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
       let admin = await User.findById(decodedToken.id);
-      if (err || admin.isAdmin === false) {
-          if(err) console.log(err.message);
-        req.isAdmin = false
-        res.status(400).json('not admin');
-    } else {
-        req.isAdmin = true
+      if (!err && (admin.role === "manager" || admin.role === "admin")) {
         next();
+      } else {
+        if(err) console.log(err.message);
+        res.status(400).json('not manager');
     }
 });
 } else {
-    req.isAdmin = false
     res.status(400).json('no token found');
   }
 };
